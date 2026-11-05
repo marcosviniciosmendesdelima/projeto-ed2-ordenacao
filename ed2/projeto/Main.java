@@ -38,7 +38,7 @@ public class Main {
 
         int opcao = -1;
         while (opcao != 0) {
-            System.out.println("\n--- MENU ESTRUTURA DE DADOS II ---");
+            System.out.println("\n--- MENU ALGORITMOS DE ORDENACAO ---");
             System.out.println("Algoritmo ativo: " + algoritmoAtivo);
             System.out.println("1. Escolher algoritmo");
             System.out.println("2. Exibir dados de entrada");
@@ -98,16 +98,22 @@ public class Main {
     }
 
     private static int[] carregarVetor(String nomeArquivo) throws IOException {
-        String linha;
+        StringBuilder conteudo = new StringBuilder();
         try (BufferedReader leitor = new BufferedReader(new FileReader(nomeArquivo))) {
-            linha = leitor.readLine();
+            String linha;
+            while ((linha = leitor.readLine()) != null) {
+                if (conteudo.length() > 0) {
+                    conteudo.append(' ');
+                }
+                conteudo.append(linha.trim());
+            }
         }
 
-        if (linha == null || linha.trim().isEmpty()) {
+        if (conteudo.length() == 0) {
             return new int[0];
         }
 
-        String[] valores = linha.trim().split("[,\\s]+");
+        String[] valores = conteudo.toString().trim().split("[,\\s]+");
         int[] vetor = new int[valores.length];
         for (int i = 0; i < valores.length; i++) {
             vetor[i] = Integer.parseInt(valores[i]);

@@ -5,7 +5,7 @@ Trabalho prático da disciplina de **Estrutura de Dados II**, do curso de Ciênc
 ## Equipe
 
 - Marcos Vinícios Mendes de Lima
-- Augusto Lima Dantas
+- Augusto Luiz Lima Dantas
 - Victor Manoel da Silva
 - Ismar Ferreira de Macêdo Neto
 - Pedro Henrique Matos de Medeiros
@@ -34,7 +34,7 @@ meu-projeto/
 
 - Permite selecionar BubbleSort, InsertionSort, MergeSort, QuickSort ou SelectionSort.
 - Exibe o vetor de entrada e a saída ordenada; para vetores com mais de 100 elementos, mostra os 100 primeiros e informa o tamanho total.
-- Lê números inteiros da primeira linha de `dados.txt`, localizado no diretório de onde o programa é executado. Os valores podem ser separados por vírgulas ou espaços.
+- Lê números inteiros de todas as linhas de `dados.txt`, localizado no diretório de onde o programa é executado. Os valores podem ser separados por vírgulas ou espaços.
 - Se `dados.txt` não existir, avisa e cria um vetor aleatório de 1.000 elementos. Erros de leitura ou valores inválidos no arquivo são informados como erros, não tratados como ausência do arquivo.
 - Compara os cinco algoritmos com vetores aleatórios de tamanhos `n`, `n²`, `n³` e `n¹⁰`. O valor-base definido no programa é `n = 2`, portanto os tamanhos usados são 2, 4, 8 e 1.024 elementos. A tabela mostra o tempo medido em milissegundos para cada algoritmo e tamanho.
 
@@ -64,7 +64,8 @@ A opção `-encoding ISO-8859-1` permite compilar `QuickSort.java` e `Utils.java
 Crie `dados.txt` na raiz do projeto, por exemplo:
 
 ```text
-45, 12, 89, 3, 22, 7
+45, 12, 89
+3, 22, 7
 ```
 
-O programa lê os números da primeira linha, separados por vírgulas ou espaços em branco.
+O programa lê todas as linhas, com números separados por vírgulas ou espaços em branco.
