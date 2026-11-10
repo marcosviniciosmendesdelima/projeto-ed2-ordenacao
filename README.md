@@ -40,6 +40,20 @@ meu-projeto/
 
 Os tempos são medidos uma vez por algoritmo e tamanho. São resultados práticos sujeitos a variações de máquina e execução, não uma análise estatística. As complexidades teóricas são:
 
+### Exemplo de tabela comparativa
+
+Uma execução de referência, com vetores aleatórios e `n = 2`, produziu os tempos abaixo. Use-os como estimativas ilustrativas: os tamanhos menores são afetados pelo custo de inicialização e pela resolução do relógio, e os resultados variam conforme a máquina.
+
+| Algoritmo | n = 2 (ms) | n² = 4 (ms) | n³ = 8 (ms) | n¹⁰ = 1.024 (ms) |
+|---|---:|---:|---:|---:|
+| BubbleSort | 0,003 | 0,002 | 0,002 | 4,892 |
+| InsertionSort | 0,001 | 0,001 | 0,002 | 2,448 |
+| MergeSort | 0,010 | 0,003 | 0,003 | 1,179 |
+| QuickSort | 0,010 | 0,004 | 0,003 | 0,393 |
+| SelectionSort | 0,001 | 0,001 | 0,002 | 3,010 |
+
+Os valores são de uma única execução e não devem ser interpretados como um ranking definitivo. Execute a opção **4. Executar tabela comparativa** para medir novamente no seu ambiente.
+
 | Algoritmo | Complexidade esperada |
 |---|---|
 | BubbleSort | O(n²); melhor caso O(n) |
