@@ -78,10 +78,13 @@ public class Main {
                     break;
                 case 3:
                     int[] vetorOrdenado = copiarVetor(vetorOriginal);
+                    System.out.println("Dados de entrada:");
+                    exibirVetor(vetorOriginal);
                     long inicio = System.nanoTime();
                     algoritmoAtivo.ordenarVetor(vetorOrdenado);
                     long tempo = System.nanoTime() - inicio;
                     System.out.printf("Tempo: %.3f ms%n", tempo / 1000000.0);
+                    System.out.println("Dados de saida:");
                     exibirVetor(vetorOrdenado);
                     break;
                 case 4:
@@ -147,26 +150,51 @@ public class Main {
     private static void executarTabela(IAlgoritmoOrdenacao[] algoritmos) {
         int[] tamanhos = {2, 4, 8, 1024};
         int[][] entradas = new int[tamanhos.length][];
+        int aquecimentos = 3;
+        int repeticoes = 5;
 
         for (int i = 0; i < tamanhos.length; i++) {
             entradas[i] = Utils.gerarVetor(tamanhos[i], 100000);
         }
 
-        System.out.println("\n--- TABELA COMPARATIVA (n = 2) ---");
+        System.out.println("\n--- TABELA COMPARATIVA (TEMPO MEDIDO) ---");
         System.out.println("Tamanhos: n=2, n^2=4, n^3=8 e n^10=1024");
+        System.out.println("Media de " + repeticoes + " execucoes, apos "
+                + aquecimentos + " aquecimentos; os tempos variam por maquina.");
         System.out.printf("%-18s | %-12s | %-12s | %-12s | %-12s%n",
                 "Algoritmo", "n (ms)", "n^2 (ms)", "n^3 (ms)", "n^10 (ms)");
 
         for (int i = 0; i < algoritmos.length; i++) {
             System.out.printf("%-18s", algoritmos[i]);
             for (int j = 0; j < tamanhos.length; j++) {
-                int[] vetor = copiarVetor(entradas[j]);
-                long inicio = System.nanoTime();
-                algoritmos[i].ordenarVetor(vetor);
-                long tempo = System.nanoTime() - inicio;
-                System.out.printf(" | %-12.3f", tempo / 1000000.0);
+                for (int repeticao = 0; repeticao < aquecimentos; repeticao++) {
+                    algoritmos[i].ordenarVetor(copiarVetor(entradas[j]));
+                }
+
+                long tempoTotal = 0;
+                for (int repeticao = 0; repeticao < repeticoes; repeticao++) {
+                    int[] vetor = copiarVetor(entradas[j]);
+                    long inicio = System.nanoTime();
+                    algoritmos[i].ordenarVetor(vetor);
+                    tempoTotal += System.nanoTime() - inicio;
+                    if (!estaOrdenado(vetor)) {
+                        throw new IllegalStateException(
+                                algoritmos[i] + " produziu um vetor fora de ordem.");
+                    }
+                }
+                double tempoMedio = tempoTotal / (double) repeticoes / 1000000.0;
+                System.out.printf(" | %-12.6f", tempoMedio);
             }
             System.out.println();
         }
+    }
+
+    private static boolean estaOrdenado(int[] vetor) {
+        for (int i = 1; i < vetor.length; i++) {
+            if (vetor[i - 1] > vetor[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 }
